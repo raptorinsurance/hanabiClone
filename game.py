@@ -4,8 +4,8 @@ from player import Player
 
 class Game():
 
-    def __init__(self, number_of_players):
-        self.players = range(number_of_players)
+    def __init__(self, displayer):
+        displayer.prompt_for_players()
 
     def get_players(self):
         return self.players
