@@ -35,3 +35,5 @@ class CommandLineGameDisplayer(object):
         name_prompt = ("Please enter the name of player {player_number}: "
             .format(player_number=player_number))
         self.players.append(get_input(name_prompt))
+
+#TODO make max and min players configurable in init
