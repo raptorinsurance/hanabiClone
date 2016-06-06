@@ -1,4 +1,3 @@
-ORDINALS = ["first", "second", "third", "fourth", "fifth", "sixth"]
 MIN_PLAYERS = 2
 MAX_PLAYERS = 5
 YES_VALUES = ["yes", "y"]
