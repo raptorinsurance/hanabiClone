@@ -1,5 +1,8 @@
-ORDINALS = ["first", "second", "third"]
+ORDINALS = ["first", "second", "third", "fourth", "fifth", "sixth"]
 MIN_PLAYERS = 2
+MAX_PLAYERS = 5
+YES_VALUES = ["yes", "y"]
+NO_VALUES = ["no", "n"]
 
 def get_input(text):
     """Wrapper for input to allow patching for unit tests"""
@@ -11,17 +14,24 @@ class CommandLineGameDisplayer(object):
         self.players = []
 
     def prompt_for_players(self):
-        for i in range(len(ORDINALS)):
-            if len(self.players) == MIN_PLAYERS:
-                self._another_player_prompt()
-            self._prompt_for_nth_player()
+        for i in range(MAX_PLAYERS):
+            next_player_index = len(self.players) + 1
+            if next_player_index > MIN_PLAYERS:
+                add_another_player = self._add_nth_player_prompt(next_player_index)
+                if not add_another_player:
+                    break
+            self._prompt_for_nth_player(next_player_index)
         return self.players
 
-    def _another_player_prompt(self):
-        another_player_prompt = "Would you like to add a third player?"
-        get_input(another_player_prompt)
+    def _add_nth_player_prompt(self, player_number):
+        another_player_prompt = ("Would you like to add player {player_number}?"
+            .format(player_number=player_number))
+        response = get_input(another_player_prompt)
+        if response in YES_VALUES:
+            return True
+        return False
 
-    def _prompt_for_nth_player(self):
-        name_prompt = ("Please enter the name of the {ordinal} player: "
-            .format(ordinal=ORDINALS[len(self.players)]))
+    def _prompt_for_nth_player(self, player_number):
+        name_prompt = ("Please enter the name of player {player_number}: "
+            .format(player_number=player_number))
         self.players.append(get_input(name_prompt))
